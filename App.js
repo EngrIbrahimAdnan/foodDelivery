@@ -1,20 +1,18 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { View } from "react-native";
+import restaurantCategories from "./constants/restaurantCategories.js";
+import HeaderScrollBar from "./components/HeaderScrollBar.js";
+import ResturantList from "./components/ResturantList.js";
+import { SafeAreaView } from "react-native-safe-area-context";
+import MenuList from "./components/MenuList.js";
+import OrderSummary from "./pages/OrderSummary.js";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView>
+      {/* <HeaderScrollBar />
+      <ResturantList /> */}
+      <MenuList />
+      {/* <OrderSummary /> */}
+    </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
