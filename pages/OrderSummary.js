@@ -4,7 +4,7 @@ import React from "react";
 export default function OrderSummary() {
   return (
     <View style={styles.parentContainer}>
-      <Text style={styles.OrderHeader}>OrderSummary</Text>
+      <Text style={styles.OrderHeader}>aya</Text>
     </View>
   );
 }

@@ -7,11 +7,14 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isPasswordVisible, setPasswordVisible] = useState(false);
+
+  const navigation = useNavigation();
 
   const handleRegister = () => {
     if (!email || !password) {
@@ -55,6 +58,11 @@ const RegisterPage = () => {
       <TouchableOpacity style={styles.button} onPress={handleRegister}>
         <Text style={styles.buttonText}>Log In</Text>
       </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+        <Text style={styles.navigateToLogin}>
+          Haven't registered yet? Click here
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -66,6 +74,12 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: "#f5f5f5",
   },
+
+  navigateToLogin: {
+    padding: 20,
+    fontSize: 15,
+  },
+
   title: {
     fontSize: 28,
     fontWeight: "bold",

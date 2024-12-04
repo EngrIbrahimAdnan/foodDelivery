@@ -10,13 +10,19 @@ import {
   Platform,
   TouchableNativeFeedback,
 } from "react-native";
-import menuList from "../constants/restaurants.js";
+import menuList from "../data/restaurants.js";
 
-export default function MenuList() {
+import { useNavigation } from "@react-navigation/native";
+
+export default function MenuList({ route }) {
+  const { resturantID } = route.params;
+
+  const navigation = useNavigation();
+
   return (
     <ScrollView contentContainerStyle={styles.menuStyle}>
       {menuList.map((menu) => {
-        if (menu.id === 2) {
+        if (menu.id === resturantID) {
           return (
             <View>
               <View style={styles.restaurantNameContainer}>

@@ -8,10 +8,14 @@ import {
   Alert,
 } from "react-native";
 
+import { useNavigation } from "@react-navigation/native";
+
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isPasswordVisible, setPasswordVisible] = useState(false);
+
+  const navigation = useNavigation();
 
   const handleLogin = () => {
     if (!email || !password) {
@@ -55,6 +59,11 @@ const LoginPage = () => {
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Log In</Text>
       </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("register")}>
+        <Text style={styles.navigateToRegister}>
+          Haven't registered yet? Click here
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -82,6 +91,11 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     backgroundColor: "#fff",
     fontSize: 16,
+  },
+
+  navigateToRegister: {
+    padding: 20,
+    fontSize: 15,
   },
   passwordContainer: {
     width: "100%",

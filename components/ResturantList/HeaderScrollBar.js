@@ -1,6 +1,6 @@
 import React from "react";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
-import restaurantCategories from "../constants/restaurantCategories.js";
+import restaurantCategories from "../../data/restaurantCategories.js";
 
 export default function HeaderScrollBar() {
   return (
