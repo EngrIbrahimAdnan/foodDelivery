@@ -9,38 +9,47 @@ import {
   Platform,
   TouchableNativeFeedback,
 } from "react-native";
-import restaurants from "../constants/restaurants";
+import restaurants from "../data/restaurants";
 
-export default function DishPage() {
-  const restaurantIndex = 3;
-  const DishIndex = 1;
+import { useNavigation } from "@react-navigation/native";
 
-  const dish = restaurants[restaurantIndex].menuItems[DishIndex];
+export default function DishPage({ route }) {
+  const { dishID, resturantID } = route.params;
 
+  const navigation = useNavigation();
+  
   return (
     <View>
-      <Text style={styles.OrderHeader}>Back</Text>
+      {restaurants.map((menu) => {
+        if (menu.id === resturantID) {
+          return menu.menuItems.map((dish) => {
+            if (dish.id === dishID) {
+              return (
+                <ScrollView key={dish.id} style={styles.pageContainer}>
+                  <Text style={styles.dishName}>{dish.name}</Text>
+                  <Image
+                    source={{ uri: dish.image }}
+                    style={styles.dishImage}
+                  />
+                  <View style={styles.textContainer}>
+                    <Text style={styles.dishDescription}>
+                      {dish.description}
+                    </Text>
+                  </View>
 
-      <ScrollView style={styles.pageContainer}>
-        <Text style={styles.dishName}>{dish.name}</Text>
-        <Image source={{ uri: dish.image }} style={styles.dishImage} />
-        <View style={styles.textContainer}>
-          <Text style={styles.dishDescription}>{dish.description}</Text>
-        </View>
-
-        <View>
-          <TouchableNativeFeedback
-            background={TouchableNativeFeedback.Ripple(
-              "rgba(255, 255, 255, 0.1)",
-              false
-            )}
-          >
-            <View style={styles.cartAddButton}>
-              <Text style={styles.cartAddText}>Add to Cart</Text>
-            </View>
-          </TouchableNativeFeedback>
-        </View>
-      </ScrollView>
+                  <View>
+                    <TouchableOpacity>
+                      <View style={styles.cartAddButton}>
+                        <Text style={styles.cartAddText}>Add to Cart</Text>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                </ScrollView>
+              );
+            }
+          });
+        }
+      })}
     </View>
   );
 }

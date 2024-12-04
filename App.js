@@ -11,15 +11,12 @@ import RegisterPage from "./pages/Auth/register.js";
 import AuthNavigation from "./naviagtions/AuthNav/AuthNavigation.js";
 import { NavigationContainer } from "@react-navigation/native";
 import HomeNavigation from "./naviagtions/HomeNav/HomeNavigation.js";
+
 export default function App() {
   return (
     <NavigationContainer>
       {/* <AuthNavigation /> */}
-
       <HomeNavigation />
-      {/* <ResturantList /> */}
-      {/* <MenuList /> */}
-      {/* <DishPage /> */}
       {/* <OrderSummary /> */}
     </NavigationContainer>
   );

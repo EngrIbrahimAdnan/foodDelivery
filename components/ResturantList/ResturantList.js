@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import HeaderScrollBar from "./HeaderScrollBar.js";
 import { useNavigation } from "@react-navigation/native";
+import ROUTES from "../../constants/routes.js";
 
 export default function ResturantList() {
   const navigation = useNavigation();
@@ -21,8 +22,11 @@ export default function ResturantList() {
       <ScrollView contentContainerStyle={styles.restaurantSuggestions}>
         {restaurantlist.map((restaurant) => (
           <TouchableOpacity
+            key={restaurant.id}
             onPress={() =>
-              navigation.navigate("MenuList", { resturantID: restaurant.id })
+              navigation.navigate(ROUTES.MENUITEMS, {
+                resturantID: restaurant.id,
+              })
             }
           >
             <View key={restaurant.id} style={styles.restaurantCard}>

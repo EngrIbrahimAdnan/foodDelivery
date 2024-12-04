@@ -13,6 +13,7 @@ import {
 import menuList from "../data/restaurants.js";
 
 import { useNavigation } from "@react-navigation/native";
+import ROUTES from "../constants/routes.js";
 
 export default function MenuList({ route }) {
   const { resturantID } = route.params;
@@ -24,12 +25,20 @@ export default function MenuList({ route }) {
       {menuList.map((menu) => {
         if (menu.id === resturantID) {
           return (
-            <View>
+            <View key={menu.id}>
               <View style={styles.restaurantNameContainer}>
                 <Text style={styles.restaurantName}>{menu.name}</Text>
               </View>
               {menu.menuItems.map((dish) => (
-                <View>
+                <TouchableOpacity
+                  key={dish.id}
+                  onPress={() =>
+                    navigation.navigate(ROUTES.DISHINFO, {
+                      dishID: dish.id,
+                      resturantID: resturantID,
+                    })
+                  }
+                >
                   <View style={styles.dishCard}>
                     <Image
                       source={{ uri: dish.image }}
@@ -41,28 +50,13 @@ export default function MenuList({ route }) {
                       <Text style={styles.dishDes}>{dish.description}</Text>
 
                       <View>
-                        {Platform.OS === "android" ? (
-                          <TouchableNativeFeedback
-                            background={TouchableNativeFeedback.Ripple(
-                              "rgba(255, 255, 255, 0.1)",
-                              false
-                            )}
-                          >
-                            <View style={styles.cartAddButton}>
-                              <Text style={styles.cartAddText}>
-                                Add to Cart
-                              </Text>
-                            </View>
-                          </TouchableNativeFeedback>
-                        ) : (
-                          <TouchableOpacity style={styles.cartAddButton}>
-                            <Text style={styles.cartAddText}>Add to Cart</Text>
-                          </TouchableOpacity>
-                        )}
+                        <TouchableOpacity style={styles.cartAddButton}>
+                          <Text style={styles.cartAddText}>Add to Cart</Text>
+                        </TouchableOpacity>
                       </View>
                     </View>
                   </View>
-                </View>
+                </TouchableOpacity>
               ))}
             </View>
           );
