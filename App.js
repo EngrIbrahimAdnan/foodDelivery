@@ -5,13 +5,15 @@ import ResturantList from "./components/ResturantList.js";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MenuList from "./components/MenuList.js";
 import OrderSummary from "./pages/OrderSummary.js";
+import DishPage from "./pages/DishPage.js";
 
 export default function App() {
   return (
     <SafeAreaView>
       {/* <HeaderScrollBar />
-      <ResturantList /> */}
-      <MenuList />
+      // <ResturantList /> */}
+      {/* <MenuList /> */}
+      <DishPage />
       {/* <OrderSummary /> */}
     </SafeAreaView>
   );
