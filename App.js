@@ -17,17 +17,22 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 
+import { Provider as PaperProvider } from "react-native-paper";
+
 export default function App() {
   const queryClient = new QueryClient();
 
   return (
-    <NavigationContainer>
-      {/* <AuthNavigation /> */}
-      {/* <OrderSummary /> */}
+    <PaperProvider>
+      <NavigationContainer>
+        {/* <OrderSummary /> */}
 
-      <QueryClientProvider client={queryClient}>
-        <HomeNavigation />
-      </QueryClientProvider>
-    </NavigationContainer>
+        <QueryClientProvider client={queryClient}>
+          <AuthNavigation />
+
+          {/* <HomeNavigation /> */}
+        </QueryClientProvider>
+      </NavigationContainer>
+    </PaperProvider>
   );
 }

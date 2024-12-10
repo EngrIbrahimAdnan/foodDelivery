@@ -10,46 +10,53 @@ import {
   TouchableNativeFeedback,
 } from "react-native";
 import restaurants from "../data/restaurants";
+import { ActivityIndicator, TouchableRipple } from "react-native-paper";
 
 import { useNavigation } from "@react-navigation/native";
+import { getDishbyID } from "../api/restaurantAPI";
+import { useQuery } from "@tanstack/react-query";
 
 export default function DishPage({ route }) {
-  const { dishID, resturantID } = route.params;
+  const { resObject, dishObject } = route.params;
+
+  const { data: dish, isLoading } = useQuery({
+    queryKey: ["getOneDish", dishObject._id],
+    queryFn: () => getDishbyID(dishObject._id),
+  });
+
+  if (isLoading)
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: "#00000",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
 
   const navigation = useNavigation();
-  
+
   return (
     <View>
-      {restaurants.map((menu) => {
-        if (menu.id === resturantID) {
-          return menu.menuItems.map((dish) => {
-            if (dish.id === dishID) {
-              return (
-                <ScrollView key={dish.id} style={styles.pageContainer}>
-                  <Text style={styles.dishName}>{dish.name}</Text>
-                  <Image
-                    source={{ uri: dish.image }}
-                    style={styles.dishImage}
-                  />
-                  <View style={styles.textContainer}>
-                    <Text style={styles.dishDescription}>
-                      {dish.description}
-                    </Text>
-                  </View>
+      <ScrollView key={dish._id} style={styles.pageContainer}>
+        <Text style={styles.dishName}>{dish.name}</Text>
+        <Image source={{ uri: dish.image }} style={styles.dishImage} />
+        <View style={styles.textContainer}>
+          <Text style={styles.dishDescription}>{dish.description}</Text>
+        </View>
 
-                  <View>
-                    <TouchableOpacity>
-                      <View style={styles.cartAddButton}>
-                        <Text style={styles.cartAddText}>Add to Cart</Text>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-                </ScrollView>
-              );
-            }
-          });
-        }
-      })}
+        <View>
+          <TouchableOpacity>
+            <View style={styles.cartAddButton}>
+              <Text style={styles.cartAddText}>Add to Cart</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </View>
   );
 }

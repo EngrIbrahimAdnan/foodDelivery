@@ -14,7 +14,8 @@ import HeaderScrollBar from "./HeaderScrollBar.js";
 import { useNavigation } from "@react-navigation/native";
 import ROUTES from "../../constants/routes.js";
 import { useQuery } from "@tanstack/react-query";
-import { getRestaurentList } from "../../spi/restaurantAPI.js";
+import { getRestaurentList } from "../../api/restaurantAPI.js";
+import { TouchableRipple } from "react-native-paper";
 
 export default function ResturantList() {
   const navigation = useNavigation();
@@ -28,7 +29,7 @@ export default function ResturantList() {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["fetchPets"],
+    queryKey: ["fetchList"],
     queryFn: getRestaurentList,
   });
 
@@ -46,7 +47,7 @@ export default function ResturantList() {
       <View
         style={{
           flex: 1,
-          backgroundColor: "#f9e3be",
+          backgroundColor: "#00000",
           alignItems: "center",
           justifyContent: "center",
         }}
@@ -76,13 +77,15 @@ export default function ResturantList() {
         {restaurantlist?.map((restaurant) => {
           if (restaurant.name.toLowerCase().includes(search.toLowerCase()))
             return (
-              <TouchableOpacity
+              <TouchableRipple
                 key={restaurant._id}
                 onPress={() =>
                   navigation.navigate(ROUTES.MENUITEMS, {
-                    resturantID: restaurant._id,
+                    object: restaurant,
                   })
                 }
+                style={styles.restaurantCardContainer}
+                rippleColor="rgba(255, 255, 255, 0.5)"
               >
                 <View key={restaurant._id} style={styles.restaurantCard}>
                   <Image
@@ -97,7 +100,7 @@ export default function ResturantList() {
                     <Text>Delivery: {restaurant.deliveryTime}</Text>
                   </View>
                 </View>
-              </TouchableOpacity>
+              </TouchableRipple>
             );
         })}
       </ScrollView>
@@ -110,7 +113,8 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     margin: 5,
   },
-  restaurantCard: {
+
+  restaurantCardContainer: {
     flexDirection: "row",
     gap: 10,
     backgroundColor: "#e0ecff", // A more appealing shade of pink
@@ -124,7 +128,20 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
     shadowRadius: 5,
+    borderRadius: 8,
     elevation: 5, // Shadow for Android
+    marginVertical: 10,
+  },
+
+  restaurantCard: {
+    flexDirection: "row",
+    gap: 10,
+    padding: 10,
+    alignItems: "center",
+    borderRadius: 15,
+    height: 100,
+    width: "95%",
+    alignSelf: "center",
     marginVertical: 10,
   },
   CategoriesHeader: {
