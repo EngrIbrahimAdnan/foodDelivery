@@ -28,9 +28,9 @@ export default function App() {
         {/* <OrderSummary /> */}
 
         <QueryClientProvider client={queryClient}>
-          <AuthNavigation />
+          {/* <AuthNavigation /> */}
 
-          {/* <HomeNavigation /> */}
+          <HomeNavigation />
         </QueryClientProvider>
       </NavigationContainer>
     </PaperProvider>

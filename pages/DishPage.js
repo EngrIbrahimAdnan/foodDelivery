@@ -18,6 +18,7 @@ import { useQuery } from "@tanstack/react-query";
 
 export default function DishPage({ route }) {
   const { resObject, dishObject } = route.params;
+  const navigation = useNavigation();
 
   const { data: dish, isLoading } = useQuery({
     queryKey: ["getOneDish", dishObject._id],
@@ -37,8 +38,6 @@ export default function DishPage({ route }) {
         <ActivityIndicator size="large" color="#0000ff" />
       </View>
     );
-
-  const navigation = useNavigation();
 
   return (
     <View>

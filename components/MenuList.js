@@ -19,6 +19,7 @@ import { getRestaurentbyID } from "../api/restaurantAPI.js";
 
 export default function MenuList({ route }) {
   const { object } = route.params;
+  const navigation = useNavigation();
 
   // const [refreshing, setRefreshing] = useState(false);
 
@@ -37,15 +38,6 @@ export default function MenuList({ route }) {
     },
   });
 
-  // const onRefresh = useCallback(() => {
-  //   setRefreshing(true);
-  //   setTimeout(() => {
-  //     setRefreshing(false);
-  //   }, 2000);
-
-  //   refetch();
-  // }, []);
-
   if (isLoading)
     return (
       <View
@@ -59,8 +51,6 @@ export default function MenuList({ route }) {
         <ActivityIndicator size="large" color="#0000ff" />
       </View>
     );
-
-  const navigation = useNavigation();
 
   return (
     <ScrollView contentContainerStyle={styles.menuStyle}>
