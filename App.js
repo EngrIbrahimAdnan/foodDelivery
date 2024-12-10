@@ -11,13 +11,23 @@ import RegisterPage from "./pages/Auth/register.js";
 import AuthNavigation from "./naviagtions/AuthNav/AuthNavigation.js";
 import { NavigationContainer } from "@react-navigation/native";
 import HomeNavigation from "./naviagtions/HomeNav/HomeNavigation.js";
+import {
+  QueryCache,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 
 export default function App() {
+  const queryClient = new QueryClient();
+
   return (
     <NavigationContainer>
       {/* <AuthNavigation /> */}
-      <HomeNavigation />
       {/* <OrderSummary /> */}
+
+      <QueryClientProvider client={queryClient}>
+        <HomeNavigation />
+      </QueryClientProvider>
     </NavigationContainer>
   );
 }
